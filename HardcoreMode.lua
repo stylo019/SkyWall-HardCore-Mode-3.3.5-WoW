@@ -1,4 +1,4 @@
---SKYWALL.ORG -- HC MODE
+--SKYWALL.ORG -- HC MODE --
 local currentTime = os.date("%Y-%m-%d %H:%M:%S")
 
 local function PlayerDeath(event, killer, killed)
