@@ -10,17 +10,14 @@ local function PlayerDeath(event, killer, killed)
                 player:SendAreaTriggerMessage("|cFFffffffPlayer |cFF00ff00" .. killed:GetName() .. "|r |cFFffffffwas killed by |cFF00ff00" .. killer:GetName() .. "|r - |cFFffffffAt lvl ".. killed:GetLevel() .."")
             end
         end 
-
         local input_HC_Dead = "INSERT INTO hc_dead_log (username, level, killer, date, result) VALUES ('" .. killed:GetName() .. "', '" .. killed:GetLevel() .. "', '" .. killer:GetName() .. "', '" .. currentTime .. "', 'DEAD')"
         AuthDBExecute(input_HC_Dead)
-
             killed:RemoveItem(666, 1)
-
         local playerGUID = killed:GetGUIDLow()
             local input_Del_Guild = "DELETE FROM guild_member WHERE guid = " .. playerGUID
             CharDBExecute(input_Del_Guild)
                 killed:SaveToDB()
-                    SendWorldMessage("|cFF007bf6You are not more in the HC Guild!|r")
+                SendWorldMessage("|cFF007bf6You are not more in the HC Guild!|r")
     end
 end
 
