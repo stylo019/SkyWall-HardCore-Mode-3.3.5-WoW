@@ -33,6 +33,8 @@ local function OnFirstTalk(event, player, unit)
             player:GossipMenuAddItem(0, "I'am ready to try Hardcore Mode!", 0, 1)
             player:GossipSendMenu(6666, unit)
         end
+    else
+        player:SendBroadcastMessage("Your current level is too high to participate in HC mode. In order to experience the thrill of HC, it is necessary to create a new hero.")
     end
 end
 
