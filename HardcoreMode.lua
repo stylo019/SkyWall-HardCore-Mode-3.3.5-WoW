@@ -10,10 +10,11 @@ local function PlayerDeath(event, killer, killed)
                 player:SendAreaTriggerMessage("|cFFffffffPlayer |cFF00ff00" .. killed:GetName() .. "|r |cFFffffffwas killed by |cFF00ff00" .. killer:GetName() .. "|r - |cFFffffffAt lvl ".. killed:GetLevel() .."")
             end
         end 
-        local input_HC_Dead = "INSERT INTO hc_dead_log (username, level, killer, date, result) VALUES ('" .. killed:GetName() .. "', '" .. killed:GetLevel() .. "', '" .. killer:GetName() .. "', '" .. currentTime .. "', 'DEAD')"
+        local playerGUID = killed:GetGUIDLow()
+
+        local input_HC_Dead = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid) VALUES ('" .. killed:GetName() .. "', '" .. killed:GetLevel() .. "', '" .. killer:GetName() .. "',  NOW(), 'DEAD', '" ..playerGUID.."')"
         AuthDBExecute(input_HC_Dead)
             killed:RemoveItem(666, 1)
-        local playerGUID = killed:GetGUIDLow()
             local input_Del_Guild = "DELETE FROM guild_member WHERE guid = " .. playerGUID
             CharDBExecute(input_Del_Guild)
                 killed:SaveToDB()
@@ -32,6 +33,23 @@ local function OnFirstTalk(event, player, unit)
         end
     else
         player:SendBroadcastMessage("Your current level is too high to participate in HC mode. In order to experience the thrill of HC, it is necessary to create a new hero.")
+local function formatTime(seconds)
+local days = math.floor(seconds / 86400)
+local hours = math.floor((seconds % 86400) / 3600)
+local minutes = math.floor((seconds % 3600) / 60)
+local seconds = seconds % 60
+
+return string.format("%01d days, %01d hours,%02d min.%02d sec.", days, hours, minutes, seconds)
+end
+local currLevelPlayTime = player:GetLevelPlayedTime()
+local totalPlayTime = player:GetTotalPlayedTime()
+
+local formattedTimeLvl = formatTime(currLevelPlayTime)
+local formattedTimeTotal = formatTime(totalPlayTime)
+SendWorldMessage("Total time played: " .. formattedTimeTotal)
+SendWorldMessage("Total played this level: " .. formattedTimeLvl)
+
+
     end
 end
 
@@ -55,7 +73,7 @@ local function OnHardCore(event, player, unit, sender, intid, code)
             SendWorldMessage(" |cFF007bf6Welcome to the |r|cFF00ff00HARDCORE|r |cFF007bf6Guild |r|cFF00ff00".. player:GetName() .. "|r|cFF00a4f6! It may take a little time for you to appear in the guild list.|r|cFF007bf6 Keep leveling up and enjoy the adventure!|r")
         
         local playerGUID = player:GetGUIDLow()
-        local input_HC_Start = "INSERT INTO hc_dead_log (username, level, killer, date, result) VALUES ('" .. player:GetName() .. "', '" .. player:GetLevel() .. "', '"..playerGUID.."', '" .. currentTime .. "', 'BEGIN')"
+        local input_HC_Start = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid) VALUES ('" .. player:GetName() .. "', '" .. player:GetLevel() .. "', 'STARTED', NOW(), 'BEGIN', '" ..playerGUID.."')"
             AuthDBExecute(input_HC_Start)
         local input_Add_Guild = [[INSERT INTO `guild_member` (`guildid`, `guid`, `rank`) VALUES ('1', ']]..playerGUID..[[', '3');]]        
             CharDBExecute(input_Add_Guild)

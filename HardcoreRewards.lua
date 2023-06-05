@@ -1,5 +1,14 @@
 --SKYWALL.ORG -- HC MODE --
 local function onPlayerLevelUp(event, player, newLevel)
+  local function formatTime(seconds)
+    local days = math.floor(seconds / 86400)
+    local hours = math.floor((seconds % 86400) / 3600)
+    local minutes = math.floor((seconds % 3600) / 60)
+    local seconds = seconds % 60
+
+    return string.format("%01d days, %01d hours,%02d min.%02d sec.", days, hours, minutes, seconds)
+  end
+
   if newLevel == 79 and player:HasItem(666, 1) then
       player:AddItem(36941, 1) 
 
@@ -29,6 +38,12 @@ local function onPlayerLevelUp(event, player, newLevel)
       end
   
     end
+    if newLevel and player:HasItem(666, 1) then
+    local totalPlayTime = player:GetTotalPlayedTime()
+    local formattedTimeTotal = formatTime(totalPlayTime)
+     SendWorldMessage("|cFFffffffHardcore|r : Total time played: " .. formattedTimeTotal)
+    end
+
 end
 
 
