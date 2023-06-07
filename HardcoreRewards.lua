@@ -12,7 +12,7 @@ local function onPlayerLevelUp(event, player, newLevel)
   if newLevel == 79 and player:HasItem(666, 1) then
       player:AddItem(36941, 1) 
 
-      SendWorldMessage(player:GetName() .. " has reached the max level 80 without dying on Hardcore Mode! Congratulations he is now Immortal!")
+      SendWorldMessage("|cFFffffffHardcore|r : " .. player:GetName() .. " has reached the max level 80 without dying on Hardcore Mode! Congratulations he is now Immortal!")
       local players = GetPlayersInWorld()
 
       for _, player in ipairs(players) do
@@ -21,7 +21,7 @@ local function onPlayerLevelUp(event, player, newLevel)
   
     end
     if newLevel == 59 and player:HasItem(666, 1) then
-      SendWorldMessage(player:GetName() .. " has reached level 60 without dying on Hardcore Mode! Congratulations!")
+      SendWorldMessage("|cFFffffffHardcore|r : " .. player:GetName() .. " has reached level 60 without dying on Hardcore Mode! Congratulations!")
       local players = GetPlayersInWorld()
 
       for _, player in ipairs(players) do
@@ -30,7 +30,7 @@ local function onPlayerLevelUp(event, player, newLevel)
   
     end
     if newLevel == 29 and player:HasItem(666, 1) then
-      SendWorldMessage(player:GetName() .. " has reached level 30 without dying on Hardcore Mode! Congratulations!")
+      SendWorldMessage("|cFFffffffHardcore|r : " .. player:GetName() .. " has reached level 30 without dying on Hardcore Mode! Congratulations!")
       local players = GetPlayersInWorld()
 
       for _, player in ipairs(players) do
@@ -38,6 +38,7 @@ local function onPlayerLevelUp(event, player, newLevel)
       end
   
     end
+    
     if newLevel and player:HasItem(666, 1) then
     local totalPlayTime = player:GetTotalPlayedTime()
     local formattedTimeTotal = formatTime(totalPlayTime)
@@ -46,6 +47,4 @@ local function onPlayerLevelUp(event, player, newLevel)
 
 end
 
-
--- Register the level up event
 RegisterPlayerEvent(13, onPlayerLevelUp)
