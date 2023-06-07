@@ -9,7 +9,7 @@
 - HC Guild Ejection: Players can be kicked out of a special Hardcore guild upon death, depriving them of special perks and features.
   
 ## Coming soon
-   - Discord Integration: Information about player deaths is automatically sent to a dedicated Discord channel, allowing real-time monitoring and communication.
+   * Discord Integration: Information about player deaths is automatically sent to a dedicated Discord channel, allowing real-time monitoring and communication.
 
 ## Installation and Usage
 
@@ -17,8 +17,8 @@
 2. Follow the installation instructions specific to your WoW server version (AzerothCore, TrinityCore, etc.).
 3. Enable the Lua Module module in your server.
 4. Add the HardCorelua scripts in the folder 'lua_script'.
-5. Add the SQL script in your Database. 'add npc 666, add item 666, create hardcore guild
-6. Use command in game to add the npc " .add npc 666 "
+5. Add the SQL script in your Database. 'add npc 666, add item 666, create hardcore guild'
+6. Use command in game to add the npc <.add npc 666>
 8. Enjoy the Hardcore mode!
 
 ## Contribution
