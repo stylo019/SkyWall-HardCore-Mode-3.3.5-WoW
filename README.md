@@ -7,7 +7,9 @@ SkyWall Hardcore Mode is a mod for the game World of Warcraft (version 3.3.5) th
 - Hardcore Mode: Players can enable Hardcore mode when creating a character, which brings more severe consequences upon death.
 - Item Loss: When players die, they lose a precious item called "Immortal" that cannot be recovered.
 - HC Guild Ejection: Players can be kicked out of a special Hardcore guild upon death, depriving them of special perks and features.
-- IN PROGRESS : Discord Integration: Information about player deaths is automatically sent to a dedicated Discord channel, allowing real-time monitoring and communication.
+  
+## Coming soon
+   - Discord Integration: Information about player deaths is automatically sent to a dedicated Discord channel, allowing real-time monitoring and communication.
 
 ## Installation and Usage
 
@@ -27,6 +29,10 @@ Contributions to this project are welcome! If you'd like to add features, fix bu
 
 - Project Source: [skywall.org](https://skywall.org)
 - License: This project is licensed under the MIT License. See the LICENSE file for more information.
+- 
+## Credits and Usage
+
+You are free to use or share this project, but kindly provide credit to [skywall.org](https://skywall.org) in your acknowledgments or documentation. This helps acknowledge the original creators and contributors of this project.
 
 ## Contributors
 
