@@ -1,6 +1,6 @@
-# SkyWall Hardcore Mode (3.3.5 WoW) (Béta)
+# [SkyWall](https://skywall.org) Hardcore Mode (3.3.5 WoW) (Béta)
 
-SkyWall Hardcore Mode is a mod for the game World of Warcraft (version 3.3.5) that introduces a Hardcore game mode for players seeking an extra challenge. In this mode, players face tougher challenges, and if they die, they lose valuable items or get kicked from a special Hardcore guild.
+[SkyWall](https://skywall.org) Hardcore Mode is a mod for the game World of Warcraft (version 3.3.5) that introduces a Hardcore game mode for players seeking an extra challenge. In this mode, players face tougher challenges, and if they die, they lose valuable items or get kicked from a special Hardcore guild.
 
 ## Key Features
 
@@ -27,19 +27,19 @@ Contributions to this project are welcome! If you'd like to add features, fix bu
 
 ## Credits
 
-- Project Source: [skywall.org](https://skywall.org)
+- Project Source: [SkyWall.org](https://skywall.org)
 - License: This project is licensed under the MIT License. See the LICENSE file for more information.
 - 
 ## Credits and Usage
 
-You are free to use or share this project, but kindly provide credit to [skywall.org](https://skywall.org) in your acknowledgments or documentation. This helps acknowledge the original creators and contributors of this project.
+You are free to use or share this project, but kindly provide credit to [SkyWall.org](https://github.com/stylo019/SkyWall-HardCore-Mode-3.3.5-WoW) in your acknowledgments or documentation. This helps acknowledge the original creators and contributors of this project.
 
 ## Contributors
 
 Special thanks to the following contributors who have helped to develop and improve this project:
 
 - [HellionOP](https://github.com/HellionOP/Lua-HardcoreMode)
-- WoW Repack Community - Skuly#5784 / Dinkledork#0864 
+- WoW Repack Community [D- ](https://discord.com) Skuly#5784 / Dinkledork#0864 
 - [AzerothCore.org](https://github.com/AzerothCore)
 - [Roboto_ - Chromiecraft]( https://chromiecraft.com )
 
