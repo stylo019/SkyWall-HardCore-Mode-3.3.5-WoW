@@ -13,7 +13,7 @@
 
 ## Installation and Usage
 
-1. Enable the Lua Module module in your server.
+1. Enable the [Lua Mod](https://github.com/azerothcore/mod-eluna) module in your server.
 2. Add the HardCorelua scripts in the folder 'lua_script'.
 3. Add the SQL script in your Database. 'add npc 666, add item 666, create hardcore guild'
 4. Use command in game to add the npc <.add npc 666>
