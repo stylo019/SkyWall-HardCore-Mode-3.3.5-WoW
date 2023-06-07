@@ -13,13 +13,11 @@
 
 ## Installation and Usage
 
-1. Clone this repository to your local directory.
-2. Follow the installation instructions specific to your WoW server version (AzerothCore, TrinityCore, etc.).
-3. Enable the Lua Module module in your server.
-4. Add the HardCorelua scripts in the folder 'lua_script'.
-5. Add the SQL script in your Database. 'add npc 666, add item 666, create hardcore guild'
-6. Use command in game to add the npc <.add npc 666>
-8. Enjoy the Hardcore mode!
+1. Enable the Lua Module module in your server.
+2. Add the HardCorelua scripts in the folder 'lua_script'.
+3. Add the SQL script in your Database. 'add npc 666, add item 666, create hardcore guild'
+4. Use command in game to add the npc <.add npc 666>
+-- Enjoy the Hardcore mode!
 
 ## Contribution
 
