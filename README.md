@@ -39,7 +39,7 @@ Special thanks to the following contributors who have helped to develop and impr
 - [HellionOP](https://github.com/HellionOP/Lua-HardcoreMode)
 - WoW Repack Community [D- ](https://discord.gg/xa7fPV9dgH) Skuly#5784 / Dinkledork#0864 
 - [AzerothCore.org](https://github.com/AzerothCore)
-- [Roboto ]( https://github.com/r-o-b-o-t-o ) - [Chromiecraft]( https://chromiecraft.com )
+- [Roboto ]( https://github.com/r-o-b-o-t-o )
 
 
 If you have contributed to this project and would like to be included in the list, please submit a pull request.
