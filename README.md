@@ -7,7 +7,8 @@
 - Hardcore Mode: Players can enable Hardcore mode when creating a character, which brings more severe consequences upon death.
 - Item Loss: When players die, they lose a precious item called "Immortal" that cannot be recovered. A global announcement is made on death for all the HC players.
 - HC Guild Ejection: Players can be kicked out of a special Hardcore guild upon death, depriving them of special perks and features.
-  
+
+  [LIVE DEMO ]( https://skywall.org )
 ## Coming soon
    * Discord Integration: Information about player deaths is automatically sent to a dedicated Discord channel, allowing real-time monitoring and communication.
 
