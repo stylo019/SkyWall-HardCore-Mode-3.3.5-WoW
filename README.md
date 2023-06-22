@@ -8,8 +8,8 @@
 - Item Loss: When players die, they lose a precious item called "Immortal" that cannot be recovered. A global announcement is made on death for all the HC players.
 - HC Guild Ejection: Players can be kicked out of a special Hardcore guild upon death, depriving them of special perks and features.
 
-  *You can test it here: [LIVE DEMO ]( https://skywall.org )
-  *Support: Discord -> d.graylsd
+  1. You can test it here: [LIVE DEMO ]( https://skywall.org )
+  2. Support: Discord -> d.graylsd
 ## Coming soon
    * Discord Integration: Information about player deaths is automatically sent to a dedicated Discord channel, allowing real-time monitoring and communication.
 
