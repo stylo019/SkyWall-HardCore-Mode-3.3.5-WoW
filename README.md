@@ -44,3 +44,4 @@ Special thanks to the following contributors who have helped to develop and impr
 
 If you have contributed to this project and would like to be included in the list, please submit a pull request.
 
+Thanks
