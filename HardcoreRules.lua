@@ -1,7 +1,7 @@
 --SKYWALL.ORG -- HC MODE --
 local function OnHardCoreLogin(event, player)
     if player:HasItem(666, 1) then
-        player:SendAreaTriggerMessage("|cFFffffffWelcome to Hardcore Mode, " .. player:GetName() .. ".|r Watch your step!|r")
+        player:SendAreaTriggerMessage("|cFFffffffWelcome to HardCore Mode, " .. player:GetName() .. ".|r Watch your step!|r")
     end
 end
 

@@ -20,7 +20,6 @@ local function PlayerDeath(event, killer, killed)
     end
 end
 
-
 local function OnFirstTalk(event, player, unit)
     if player:GetLevel() == 1 then
         if player:HasItem(666) then
@@ -32,7 +31,6 @@ local function OnFirstTalk(event, player, unit)
         end
     else
         player:SendBroadcastMessage("|cFFffffffHardcore|r : Your current level is too high to participate in HC mode. In order to experience the thrill of HC, it is necessary to create a new hero.")
-
             local function formatTime(seconds)
                 local days = math.floor(seconds / 86400)
                 local hours = math.floor((seconds % 86400) / 3600)
@@ -47,7 +45,6 @@ local function OnFirstTalk(event, player, unit)
             local formattedTimeTotal = formatTime(totalPlayTime)
                 SendWorldMessage("Total time played: " .. formattedTimeTotal)
                 SendWorldMessage("Total played this level: " .. formattedTimeLvl)
-
     end
 end
 
