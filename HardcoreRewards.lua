@@ -1,4 +1,4 @@
---SKYWALL.ORG -- HC MODE --
+--SKYWALL.ORG -- HC MODE -- / /
 local function onPlayerLevelUp(event, player, newLevel)
   local function formatTime(seconds)
     local days = math.floor(seconds / 86400)

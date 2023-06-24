@@ -1,4 +1,4 @@
---SKYWALL.ORG -- HC MODE --
+--SKYWALL.ORG -- HC MODE --/ /
 local function PlayerDeath(event, killer, killed)
     if killed:HasItem(666, 1) then
         local players = GetPlayersInWorld()
