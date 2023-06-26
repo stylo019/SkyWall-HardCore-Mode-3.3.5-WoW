@@ -9,10 +9,12 @@
 - HC Guild Ejection: Players can be kicked out of a special Hardcore guild upon death, depriving them of special perks and features.
 - MailBox and Banks are not autorised for HC players.
 
+## LIVE DEMO
   1. You can test it here: [LIVE DEMO ]( https://skywall.org )
   2. Support: Discord -> d.graylsd
+
 ## Coming soon
-   * Discord Integration: Information about player deaths is automatically sent to a dedicated Discord channel, allowing real-time monitoring and communication.
+   - Discord Integration: Information about player deaths is automatically sent to a dedicated Discord channel, allowing real-time monitoring and communication.
 
 ## Installation and Usage
 
