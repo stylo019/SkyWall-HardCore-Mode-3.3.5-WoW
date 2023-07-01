@@ -3,10 +3,10 @@ local function PlayerDeath(event, killer, killed)
     if killed:HasItem(666, 1) then
         local players = GetPlayersInWorld()
         for _, player in ipairs(players) do
-            if player:HasItem(666, 1) then
+           
                 player:SendBroadcastMessage("|cFFffffffHardcore|r : |cFFffffffPlayer |cFF00ff00" .. killed:GetName() .. "|r |cFFffffffwas killed by |cFF00ff00" .. killer:GetName() .. "|r - |cFFffffffAt lvl ".. killed:GetLevel() .."")
                 player:SendAreaTriggerMessage("|cFFffffffHardcore|r : |cFFffffffPlayer |cFF00ff00" .. killed:GetName() .. "|r |cFFffffffwas killed by |cFF00ff00" .. killer:GetName() .. "|r - |cFFffffffAt lvl ".. killed:GetLevel() .."")
-            end
+            
         end 
         local playerGUID = killed:GetGUIDLow()
 
