@@ -41,6 +41,7 @@ You are free to use or share this project, but kindly provide credit to [SkyWall
 
 Special thanks to the following contributors who have helped to develop and improve this project:
 
+- [Dewen](https://www.sodawow.eu)
 - [HellionOP](https://github.com/HellionOP/Lua-HardcoreMode)
 - WoW Repack Community [D- ](https://discord.gg/xa7fPV9dgH) Skuly#5784 / Dinkledork#0864 
 - [AzerothCore.org](https://github.com/AzerothCore)
