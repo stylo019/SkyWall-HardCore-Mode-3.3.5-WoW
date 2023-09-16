@@ -19,25 +19,3 @@ INSERT INTO `npc_text` (`ID`, `text0_0`, `text0_1`, `BroadcastTextID0`, `lang0`,
 (6667, 'Are you sure ? ', '\r\n\r\nHowever, be warned that if you meet an unfortunate die before reaching level 80, you\'ll lose your \'Immortal Artifact\' and exit hardcore mode.\r\n\r\nBut you can play a normal game.\r\n\r\nAre you ready to embrace the challenge and test your limits $N?\r\n\r\n\r\n\r\n', 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL),
 (6668, NULL, 'Congratulations $N! \r\n\r\n\r\nYour HardCore Mode is now active. \r\n\r\nAs you embark on your daring adventure, remember that every step you take holds immense significance. \r\n\r\n\r\nUpon your death, you will be expelled from the guild and lose the Immortal Artifact item. \r\n\r\nYou can either delete your character or continue without Hardcore mode!\r\n\r\n\r\nWishing you the best of luck on your extraordinary journey! SkyWall.org', 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)
 	
--- DEFAULT DATA FOR EASY TESTING/DEVELOPMENT
-SET @GUILD_ID := 1; -- Default guild ID
-SET @GUILD_NAME := 'HardCore';
-SET @CHARACTER_ID := 1; -- Character ID that will be the leader of the guild
-
-INSERT INTO `guild` (`guildid`, `name`, `leaderguid`, `motd`) VALUES
-(@GUILD_ID, @GUILD_NAME, @CHARACTER_ID, 'HardCore Guild!');
--- DELETE GUILD AFTER TESTING IF YOU WANT
--- DELETE FROM `guild` WHERE `guildid` = @GUILD_ID;
-	
-	
-	
--- acore_auth
--- Listage de la structure de table acore_auth. hc_dead_log
-CREATE TABLE IF NOT EXISTS `hc_dead_log` (
-  `username` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `level` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `killer` text COLLATE utf8mb4_general_ci,
-  `date` datetime DEFAULT NULL,
-  `result` text COLLATE utf8mb4_general_ci,
-  `guid` text COLLATE utf8mb4_general_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

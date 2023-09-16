@@ -32,7 +32,7 @@ local function OnCanGroupInvite(event, player, memberName)
 end
 
 
-local enabledBankers = true
+local enabledBankers = false
 local Bankers = {
     2455, 2456, 2457, 2458, 2459, 2460, 2461, 2625, 2996, 3309, 3318, 3320, 3496, 4155, 4208, 4209, 4549, 4550, 5060, 5099, 7799, 8119, 8123, 8124, 8356, 8357,
     13917, 16615, 16616, 16617, 16710, 17631, 17632, 17633, 17773, 18350, 19034, 19246, 19318, 19338, 21732, 21733, 21734, 28343, 28675, 28676, 28677, 28678,
@@ -68,7 +68,7 @@ local Mailboxes = {32349, 140908, 142075, 142089, 142093, 142094, 142095, 142102
     195562, 195603, 195604, 195605, 195606, 195607, 195608, 195609, 195610, 195611, 195612, 195613, 195614, 195615, 195616, 195617, 195618, 195619, 
     195620, 195624, 195625, 195626, 195627, 195628, 195629}
 
-local ObjectRespawnRange = 3.6
+local ObjectRespawnRange = 5
 if enabledMail then
     for _, v in ipairs(Mailboxes) do
         RegisterGameObjectEvent(v, 1, function(event, gameobject)

@@ -1,24 +1,37 @@
 --SKYWALL.ORG -- HC MODE --/ /
-local function PlayerDeath(event, killer, killed)
-    if killed:HasItem(666, 1) then
-        local players = GetPlayersInWorld()
-        for _, player in ipairs(players) do
-            if player:HasItem(666, 1) then
-                player:SendBroadcastMessage("|cFFffffffHardcore|r : |cFFffffffPlayer |cFF00ff00" .. killed:GetName() .. "|r |cFFffffffwas killed by |cFF00ff00" .. killer:GetName() .. "|r - |cFFffffffAt lvl ".. killed:GetLevel() .."")
-                player:SendAreaTriggerMessage("|cFFffffffHardcore|r : |cFFffffffPlayer |cFF00ff00" .. killed:GetName() .. "|r |cFFffffffwas killed by |cFF00ff00" .. killer:GetName() .. "|r - |cFFffffffAt lvl ".. killed:GetLevel() .."")
-            end
-        end 
-        local playerGUID = killed:GetGUIDLow()
+local function PlayerDeath(event, player, killer)
+    if player:HasItem(666, 1) then
+        -- Get Player Information
+        local playerGUID = player:GetGUIDLow()
+        local playerName = player:GetName()
+        local playerLevel = player:GetLevel()
 
-        local input_HC_Dead = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid) VALUES ('" .. killed:GetName() .. "', '" .. killed:GetLevel() .. "', '" .. killer:GetName() .. "',  NOW(), 'DEAD', '" ..playerGUID.."')"
+        -- Check if the player is in the "HardCore" guild
+        local guild = player:GetGuild()
+        if guild and guild:GetName() == "HardCore" then
+            guild:DeleteMember(player, false)
+            SendWorldMessage("|cFFffffffHardcore|r : |cFF007bf6" .. playerName .. " was removed from the Hardcore Guild!|r")
+        end
+
+        local players = GetPlayersInWorld()
+        local killerName = ""
+        if killer then
+            killerName = killer:GetName()
+        end
+
+        -- Broadcast Message to other players in the world
+        for _, p in ipairs(players) do
+            p:SendBroadcastMessage("|cFFffffffHardcore|r : |cFFffffffUser |cFF00ff00" .. playerName .. "|r |cFFffffffwas killed by |cFF00ff00" .. killerName .. "|r  - |cFFffffffLevel " .. playerLevel .. "")
+            p:SendAreaTriggerMessage("|cFFffffffHardcore|r : |cFFffffffUser |cFF00ff00" .. playerName .. "|r |cFFffffffwas killed by |cFF00ff00" .. killerName .. "|r  - |cFFffffffLevel " .. playerLevel .. "")
+        end
+        local input_HC_Dead = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid) VALUES ('" .. player:GetName() .. "', '" .. player:GetLevel() .. "', '" .. killer:GetName() .. "',  NOW(), 'DEAD', '" ..playerGUID.."')"
         AuthDBExecute(input_HC_Dead)
-            killed:RemoveItem(666, 1)
-            local input_Del_Guild = "DELETE FROM guild_member WHERE guid = " .. playerGUID
-            CharDBExecute(input_Del_Guild)
-                killed:SaveToDB()
-                SendWorldMessage("|cFFffffffHardcore|r : |cFF007bf6You are not more in the HC Guild!|r")
+        -- Remove Hardcore Item from player
+        player:RemoveItem(666, 1)
     end
 end
+
+RegisterPlayerEvent(6, PlayerDeath)
 
 local function OnFirstTalk(event, player, unit)
     if player:GetLevel() == 1 then
@@ -56,6 +69,7 @@ local function OnSelect(event, player, unit, sender, intid, code)
     end
     if intid == 3 then
         player:GossipComplete()
+
     end
 end
 
@@ -64,17 +78,24 @@ local function OnHardCore(event, player, unit, sender, intid, code)
         player:AddItem(666, 1)
         player:SetCoinage(0)
         player:SendAreaTriggerMessage("|cFFffffffWelcome to Hardcore Mode,|cFF00ff00" .. player:GetName() .. ".|r |cFFffffffStay vigilant and tread carefully!|r")
-            SendWorldMessage("|cFFffffffHardcore|r : |cFF00ff00".. player:GetName() .. "|r has entered Hardcore Mode! Best of luck on your journey!")
-            SendWorldMessage("|cFF007bf6Welcome to the |r|cFF00ff00HARDCORE|r |cFF007bf6Guild |r|cFF00ff00".. player:GetName() .. "|r|cFF00a4f6! It may take a little time for you to appear in the guild list.|r|cFF007bf6 Keep leveling up and enjoy the adventure!|r")
-        
+        SendWorldMessage("|cFFffffffHardcore|r : |cFF00ff00".. player:GetName() .. "|r has entered Hardcore Mode! Best of luck on your journey!")
+
         local playerGUID = player:GetGUIDLow()
+
+        -- Insert a record into the hc_dead_log table to mark the player's start
         local input_HC_Start = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid) VALUES ('" .. player:GetName() .. "', '" .. player:GetLevel() .. "', 'STARTED', NOW(), 'BEGIN', '" ..playerGUID.."')"
-            AuthDBExecute(input_HC_Start)
-        local input_Add_Guild = [[INSERT INTO `guild_member` (`guildid`, `guid`, `rank`) VALUES ('1', ']]..playerGUID..[[', '3');]]        
-            CharDBExecute(input_Add_Guild)
+        AuthDBExecute(input_HC_Start)
+
+        -- Add the player to the "HardCore" guild using Guild:AddMember()
+        local guild = GetGuildByName("HardCore") 
+        if guild then
+            guild:AddMember(player, 3) -- Replace 3 with the desired rank ID
+        end
+
         player:GossipComplete()
     end  
 end
+
 
 RegisterCreatureGossipEvent(666, 1, OnFirstTalk)
 RegisterCreatureGossipEvent(666, 2, OnSelect)
