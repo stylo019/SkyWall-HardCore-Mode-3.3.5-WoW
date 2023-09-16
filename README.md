@@ -7,11 +7,14 @@
 - Hardcore Mode: Players can enable Hardcore mode when creating a character, which brings more severe consequences upon death.
 - Item Loss: When players die, they lose a precious item called "Immortal" that cannot be recovered. A global announcement is made on death for all the HC players.
 - HC Guild Ejection: Players can be kicked out of a special Hardcore guild upon death, depriving them of special perks and features.
+- MailBox and Banks are not autorised for HC players.
 
+## LIVE DEMO
   1. You can test it here: [LIVE DEMO ]( https://skywall.org )
   2. Support: Discord -> d.graylsd
+
 ## Coming soon
-   * Discord Integration: Information about player deaths is automatically sent to a dedicated Discord channel, allowing real-time monitoring and communication.
+   - Discord Integration: Information about player deaths is automatically sent to a dedicated Discord channel, allowing real-time monitoring and communication.
 
 ## Installation and Usage
 
@@ -38,6 +41,7 @@ You are free to use or share this project, but kindly provide credit to [SkyWall
 
 Special thanks to the following contributors who have helped to develop and improve this project:
 
+- [Dewen](https://www.sodawow.eu)
 - [HellionOP](https://github.com/HellionOP/Lua-HardcoreMode)
 - WoW Repack Community [D- ](https://discord.gg/xa7fPV9dgH) Skuly#5784 / Dinkledork#0864 
 - [AzerothCore.org](https://github.com/AzerothCore)
