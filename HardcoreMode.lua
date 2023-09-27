@@ -1,5 +1,5 @@
 --SKYWALL.ORG -- HC MODE --/ /
-local function PlayerDeath(event, player, killer)
+local function PlayerDeath(event, killer, player)
     if player:HasItem(666, 1) then
         -- Get Player Information
         local playerGUID = player:GetGUIDLow()
@@ -30,8 +30,6 @@ local function PlayerDeath(event, player, killer)
         player:RemoveItem(666, 1)
     end
 end
-
-RegisterPlayerEvent(6, PlayerDeath)
 
 local function OnFirstTalk(event, player, unit)
     if player:GetLevel() == 1 then
@@ -101,3 +99,4 @@ RegisterCreatureGossipEvent(666, 1, OnFirstTalk)
 RegisterCreatureGossipEvent(666, 2, OnSelect)
 RegisterCreatureGossipEvent(666, 2, OnHardCore)
 RegisterPlayerEvent(8, PlayerDeath)
+RegisterPlayerEvent(6, PlayerDeath)
