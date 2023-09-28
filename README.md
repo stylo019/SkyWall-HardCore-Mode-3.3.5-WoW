@@ -1,6 +1,6 @@
-# [SkyWall](https://skywall.org) Hardcore Mode (3.3.5 WoW) (Béta)
+# [SkyWall](https://frostweave.gg) Hardcore Mode (3.3.5 WoW) (Béta)
 
-[SkyWall](https://skywall.org) Hardcore Mode is a mod for the game World of Warcraft (version 3.3.5) that introduces a Hardcore game mode for players seeking an extra challenge. In this mode, players face tougher challenges, and if they die, they lose valuable items or get kicked from a special Hardcore guild.
+[SkyWall](https://frostweave.gg) Hardcore Mode is a mod for the game World of Warcraft (version 3.3.5) that introduces a Hardcore game mode for players seeking an extra challenge. In this mode, players face tougher challenges, and if they die, they lose valuable items or get kicked from a special Hardcore guild.
 
 ## Key Features
 
@@ -10,8 +10,8 @@
 - MailBox and Banks are not autorised for HC players.
 
 ## LIVE DEMO
-  1. You can test it here: [LIVE DEMO ]( https://skywall.org )
-  2. Support: Discord -> d.graylsd
+  1. You can test it here: [LIVE DEMO ]( https://frostweave.gg )
+  2. Support: Discord -> _trojan
 
 ## Coming soon
    - Discord Integration: Information about player deaths is automatically sent to a dedicated Discord channel, allowing real-time monitoring and communication.
@@ -30,12 +30,12 @@ Contributions to this project are welcome! If you'd like to add features, fix bu
 
 ## Credits
 
-- Project Source: [SkyWall.org](https://skywall.org)
+- Project Source: [FROSTWEAVE.GG](https://frostweave.gg)
 - License: This project is licensed under the MIT License. See the LICENSE file for more information.
 - 
 ## Credits and Usage
 
-You are free to use or share this project, but kindly provide credit to [SkyWall.org](https://github.com/stylo019/SkyWall-HardCore-Mode-3.3.5-WoW) in your acknowledgments or documentation. This helps acknowledge the original creators and contributors of this project.
+You are free to use or share this project, but kindly provide credit to [SKYWALL.ORG](https://github.com/stylo019/SkyWall-HardCore-Mode-3.3.5-WoW) in your acknowledgments or documentation. This helps acknowledge the original creators and contributors of this project.
 
 ## Contributors
 
@@ -46,6 +46,7 @@ Special thanks to the following contributors who have helped to develop and impr
 - WoW Repack Community [D- ](https://discord.gg/xa7fPV9dgH) Skuly#5784 / Dinkledork#0864 
 - [AzerothCore.org](https://github.com/AzerothCore)
 - [Roboto ]( https://github.com/r-o-b-o-t-o )
+- [Trohjan](https://github.com/svenbledt)
 
 
 If you have contributed to this project and would like to be included in the list, please submit a pull request.
