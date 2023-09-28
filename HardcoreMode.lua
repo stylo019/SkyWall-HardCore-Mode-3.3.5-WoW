@@ -50,7 +50,6 @@ local function PlayerOnDeath(event, killer, player)
     end
 end
 
-
 local function OnFirstTalk(event, player, unit)
     if player:GetLevel() == 1 then
         if player:HasItem(666) then
