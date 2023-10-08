@@ -1,5 +1,5 @@
 --SKYWALL.ORG -- HC MODE --/ /
-local function PlayerDeath(event, player, killer)
+local function PlayerDeath(event, killer, player)
     if player:HasItem(666, 1) then
         -- Get Player Information
         local playerGUID = player:GetGUIDLow()
@@ -28,6 +28,13 @@ local function PlayerDeath(event, player, killer)
         AuthDBExecute(input_HC_Dead)
         -- Remove Hardcore Item from player
         player:RemoveItem(666, 1)
+                 -- Discord embed
+                 local embed = '{"username": "Hardcore System", "avatar_url": "https://skywall.org/hclogo.png", "content": ":skull: Player **'.. playerName ..'** was killed by **' ..killerName.. '** at Level **'.. playerLevel ..'** ...better luck next time! Rip! :skull_crossbones:"}'
+                 -- POST request to Discord Webhook
+                 HttpRequest("POST", "YOUR HOOK ID",
+                     embed, "application/json", function(status, body, headers)
+                     print(body)
+                 end)
     end
 end
 
@@ -79,12 +86,22 @@ local function OnHardCore(event, player, unit, sender, intid, code)
         player:SetCoinage(0)
         player:SendAreaTriggerMessage("|cFFffffffWelcome to Hardcore Mode,|cFF00ff00" .. player:GetName() .. ".|r |cFFffffffStay vigilant and tread carefully!|r")
         SendWorldMessage("|cFFffffffHardcore|r : |cFF00ff00".. player:GetName() .. "|r has entered Hardcore Mode! Best of luck on your journey!")
+               
+
 
         local playerGUID = player:GetGUIDLow()
 
         -- Insert a record into the hc_dead_log table to mark the player's start
         local input_HC_Start = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid) VALUES ('" .. player:GetName() .. "', '" .. player:GetLevel() .. "', 'STARTED', NOW(), 'BEGIN', '" ..playerGUID.."')"
         AuthDBExecute(input_HC_Start)
+        
+                -- Discord embed
+                local embed = '{"username": "Hardcore System", "avatar_url": "https://skywall.org/hclogo.png", "content": ":tada: Player **'.. playerName ..'** started his HardCore Mode! Good luck! :saluting_face:"}'
+                -- POST request to Discord Webhook
+                HttpRequest("POST", "YOUR HOOKID",
+                    embed, "application/json", function(status, body, headers)
+                    print(body)
+                end)
 
         -- Add the player to the "HardCore" guild using Guild:AddMember()
         local guild = GetGuildByName("HardCore") 
