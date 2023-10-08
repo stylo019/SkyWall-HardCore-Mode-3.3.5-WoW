@@ -46,6 +46,7 @@ Special thanks to the following contributors who have helped to develop and impr
 - WoW Repack Community [D- ](https://discord.gg/xa7fPV9dgH) Skuly#5784 / Dinkledork#0864 
 - [AzerothCore.org](https://github.com/AzerothCore)
 - [Roboto ]( https://github.com/r-o-b-o-t-o )
+- [Trojan ]( https://github.com/svenbledt )
 
 
 If you have contributed to this project and would like to be included in the list, please submit a pull request.
