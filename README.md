@@ -32,7 +32,7 @@ Contributions to this project are welcome! If you'd like to add features, fix bu
 
 - Project Source: [SkyWall.org](https://skywall.org)
 - License: This project is licensed under the MIT License. See the LICENSE file for more information.
-- 
+- https://www.patreon.com/SkyWallServer
 ## Credits and Usage
 
 You are free to use or share this project, but kindly provide credit to [SkyWall.org](https://github.com/stylo019/SkyWall-HardCore-Mode-3.3.5-WoW) in your acknowledgments or documentation. This helps acknowledge the original creators and contributors of this project.
