@@ -1,4 +1,4 @@
---SKYWALL.ORG -- HC MODE --/ /
+--SKYWALL.ORG -- HC MODE --/ //
 local function PlayerDeath(event, killer, player)
     if player:HasItem(666, 1) then
         -- Get Player Information
