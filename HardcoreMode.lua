@@ -1,3 +1,4 @@
+-- SkyWall.org
 local raceNames = {
     [1] = "Human",
     [2] = "Orc",
@@ -53,7 +54,6 @@ local function PlayerDeath(event, killer, player)
 
         local survivalTime = currLevelPlayTime  
 
-        -- Obtener el nombre de la zona en la que el jugador murió
         local zoneName = player:GetMap():GetName()
 
         for _, p in ipairs(players) do
