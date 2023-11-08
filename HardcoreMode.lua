@@ -1,3 +1,26 @@
+local raceNames = {
+    [1] = "Human",
+    [2] = "Orc",
+    [3] = "Dwarf",
+    [4] = "Night Elf",
+    [5] = "Undead",
+    [6] = "Tauren",
+    [7] = "Gnome",
+    [8] = "Troll",
+}
+
+local classNames = {
+    [1] = "Warrior",
+    [2] = "Paladin",
+    [3] = "Hunter",
+    [4] = "Rogue",
+    [5] = "Priest",
+    [6] = "Death Knight",
+    [7] = "Shaman",
+    [8] = "Mage",
+    [9] = "Warlock",
+}
+
 local function formatTime(seconds)
     local days = math.floor(seconds / 86400)
     local hours = math.floor((seconds % 86400) / 3600)
@@ -11,10 +34,13 @@ local function PlayerDeath(event, killer, player)
         local playerGUID = player:GetGUIDLow()
         local playerName = player:GetName()
         local playerLevel = player:GetLevel()
-        local playerRace = player:GetRace()
-        local playerClass = player:GetClass()
+        local playerRaceID = player:GetRace()
+        local playerClassID = player:GetClass()
         local currLevelPlayTime = player:GetLevelPlayedTime()
         local formattedTimeLvl = formatTime(currLevelPlayTime)
+
+        local playerRace = raceNames[playerRaceID] or "Unknown"
+        local playerClass = classNames[playerClassID] or "Unknown"
 
         local guild = player:GetGuild()
         if guild and guild:GetName() == "HardCore" then
@@ -25,28 +51,30 @@ local function PlayerDeath(event, killer, player)
         local players = GetPlayersInWorld()
         local killerName = killer and killer:GetName() or "Unknown"
 
-        local survivalTime = currLevelPlayTime  -- Tiempo de supervivencia del jugador
+        local survivalTime = currLevelPlayTime  
+
+        -- Obtener el nombre de la zona en la que el jugador murió
+        local zoneName = player:GetMap():GetName()
 
         for _, p in ipairs(players) do
-            p:SendBroadcastMessage("|cFFffffffHardcore|r : |cFFffffffUser |cFF00ff00" .. playerName .. "|r |cFFffffffwas killed by |cFF00ff00" .. killerName .. "|r  - |cFFffffffLevel " .. playerLevel .. " after surviving " .. formattedTimeLvl)
-            p:SendAreaTriggerMessage("|cFFffffffHardcore|r : |cFFffffffUser |cFF00ff00" .. playerName .. "|r |cFFffffffwas killed by |cFF00ff00" .. killerName .. "|r  - |cFFffffffLevel " .. playerLevel .. " after surviving : " .. formattedTimeLvl)
+            p:SendBroadcastMessage("|cFFffffffHardcore|r : |cFFffffffLevel " .. playerLevel .. " player |cFF00ff00" .. playerName .. "|r |cFFffffff(" .. playerRace .. " " .. playerClass .. ") was killed by |cFF00ff00" .. killerName .. "|r |cFFffffffin the " .. zoneName .. " zone, after surviving " .. formattedTimeLvl.."|r")
+            p:SendAreaTriggerMessage("|cFFffffffHardcore|r : |cFFffffffLevel " .. playerLevel .. " player |cFF00ff00" .. playerName .. "|r |cFFffffff(" .. playerRace .. " " .. playerClass .. ") was killed by |cFF00ff00" .. killerName .. "|r |cFFffffffin the " .. zoneName .. " zone, after surviving " .. formattedTimeLvl.."|r")
         end
 
-        local input_HC_Dead = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid, survival_time) VALUES ('" .. player:GetName() .. "', '" .. player:GetLevel() .. "', '" .. killerName .. "',  NOW(), 'DEAD', '" ..playerGUID.."', '" .. survivalTime .. "')"
+        local input_HC_Dead = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid, survival_time, player_race, player_class, zone_name) VALUES ('" .. player:GetName() .. "', '" .. player:GetLevel() .. "', '" .. killerName .. "',  NOW(), 'DEAD', '" .. playerGUID .. "', '" .. survivalTime .. "', '" .. playerRace .. "', '" .. playerClass .. "', '" .. zoneName .. "')"
         AuthDBExecute(input_HC_Dead)
 
         player:RemoveItem(666, 1)
 
         -- Discord embed
-                 local embed = '{"username": "Hardcore System", "avatar_url": "https://skywall.org/hclogo.png", "content": ":skull: Player **'.. playerName ..'** was killed by **' ..killerName.. '** at Level **'.. playerLevel ..' after surviving ' ..formattedTimeLvl.. ' ** ...better luck next time! Rip! :skull_crossbones:"}'
+                 local embed = '{"username": "Hardcore System", "avatar_url": "https://skywall.org/hclogo.png", "content": ":skull: Player **'.. playerName ..' (' .. playerRace .. ' ' .. playerClass .. ')** was killed by **' ..killerName.. '** at Level '.. playerLevel ..' in the ' .. zoneName .. ' zone, after surviving ' ..formattedTimeLvl.. ' ...better luck next time! Rip! :skull_crossbones:"}'
                  -- POST request to Discord Webhook
-                 HttpRequest("POST", "YOUR HOOK ID",
+                 HttpRequest("POST", "https://discord.com/api/webhooks/1171672579170377778/myo2lUfv-dKIyubF18iXyOVeFY_4I5ylsg7fjMal5zHQaJoC7zb84w7irAnpGFQQIi2Z",
                      embed, "application/json", function(status, body, headers)
                      print(body)
                  end)
     end
 end
-
 
 RegisterPlayerEvent(6, PlayerDeath)
 
@@ -106,7 +134,7 @@ local function OnHardCore(event, player, unit, sender, intid, code)
                 -- Discord embed
                 local embed = '{"username": "Hardcore System", "avatar_url": "https://skywall.org/hclogo.png", "content": ":tada: Player **'.. playerName ..'** started his HardCore Mode! Good luck! :saluting_face:"}'
                 -- POST request to Discord Webhook
-                HttpRequest("POST", "YOUR HOOK ID",
+                HttpRequest("POST", "https://discord.com/api/webhooks/1171672579170377778/myo2lUfv-dKIyubF18iXyOVeFY_4I5ylsg7fjMal5zHQaJoC7zb84w7irAnpGFQQIi2Z",
                     embed, "application/json", function(status, body, headers)
                     print(body)
                 end)
@@ -120,7 +148,6 @@ local function OnHardCore(event, player, unit, sender, intid, code)
         player:GossipComplete()
     end  
 end
-
 
 RegisterCreatureGossipEvent(666, 1, OnFirstTalk)
 RegisterCreatureGossipEvent(666, 2, OnSelect)
