@@ -1,12 +1,21 @@
---SKYWALL.ORG -- HC MODE --/ //
+local function formatTime(seconds)
+    local days = math.floor(seconds / 86400)
+    local hours = math.floor((seconds % 86400) / 3600)
+    local minutes = math.floor((seconds % 3600) / 60)
+    local seconds = seconds % 60
+    return string.format("%d days, %d hours, %02d min, %02d sec", days, hours, minutes, seconds)
+end
+
 local function PlayerDeath(event, killer, player)
     if player:HasItem(666, 1) then
-        -- Get Player Information
         local playerGUID = player:GetGUIDLow()
         local playerName = player:GetName()
         local playerLevel = player:GetLevel()
+        local playerRace = player:GetRace()
+        local playerClass = player:GetClass()
+        local currLevelPlayTime = player:GetLevelPlayedTime()
+        local formattedTimeLvl = formatTime(currLevelPlayTime)
 
-        -- Check if the player is in the "HardCore" guild
         local guild = player:GetGuild()
         if guild and guild:GetName() == "HardCore" then
             guild:DeleteMember(player, false)
@@ -14,22 +23,22 @@ local function PlayerDeath(event, killer, player)
         end
 
         local players = GetPlayersInWorld()
-        local killerName = ""
-        if killer then
-            killerName = killer:GetName()
+        local killerName = killer and killer:GetName() or "Unknown"
+
+        local survivalTime = currLevelPlayTime  -- Tiempo de supervivencia del jugador
+
+        for _, p in ipairs(players) do
+            p:SendBroadcastMessage("|cFFffffffHardcore|r : |cFFffffffUser |cFF00ff00" .. playerName .. "|r |cFFffffffwas killed by |cFF00ff00" .. killerName .. "|r  - |cFFffffffLevel " .. playerLevel .. " after surviving " .. formattedTimeLvl)
+            p:SendAreaTriggerMessage("|cFFffffffHardcore|r : |cFFffffffUser |cFF00ff00" .. playerName .. "|r |cFFffffffwas killed by |cFF00ff00" .. killerName .. "|r  - |cFFffffffLevel " .. playerLevel .. " after surviving : " .. formattedTimeLvl)
         end
 
-        -- Broadcast Message to other players in the world
-        for _, p in ipairs(players) do
-            p:SendBroadcastMessage("|cFFffffffHardcore|r : |cFFffffffUser |cFF00ff00" .. playerName .. "|r |cFFffffffwas killed by |cFF00ff00" .. killerName .. "|r  - |cFFffffffLevel " .. playerLevel .. "")
-            p:SendAreaTriggerMessage("|cFFffffffHardcore|r : |cFFffffffUser |cFF00ff00" .. playerName .. "|r |cFFffffffwas killed by |cFF00ff00" .. killerName .. "|r  - |cFFffffffLevel " .. playerLevel .. "")
-        end
-        local input_HC_Dead = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid) VALUES ('" .. player:GetName() .. "', '" .. player:GetLevel() .. "', '" .. killer:GetName() .. "',  NOW(), 'DEAD', '" ..playerGUID.."')"
+        local input_HC_Dead = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid, survival_time) VALUES ('" .. player:GetName() .. "', '" .. player:GetLevel() .. "', '" .. killerName .. "',  NOW(), 'DEAD', '" ..playerGUID.."', '" .. survivalTime .. "')"
         AuthDBExecute(input_HC_Dead)
-        -- Remove Hardcore Item from player
+
         player:RemoveItem(666, 1)
-                 -- Discord embed
-                 local embed = '{"username": "Hardcore System", "avatar_url": "https://skywall.org/hclogo.png", "content": ":skull: Player **'.. playerName ..'** was killed by **' ..killerName.. '** at Level **'.. playerLevel ..'** ...better luck next time! Rip! :skull_crossbones:"}'
+
+        -- Discord embed
+                 local embed = '{"username": "Hardcore System", "avatar_url": "https://skywall.org/hclogo.png", "content": ":skull: Player **'.. playerName ..'** was killed by **' ..killerName.. '** at Level **'.. playerLevel ..' after surviving ' ..formattedTimeLvl.. ' ** ...better luck next time! Rip! :skull_crossbones:"}'
                  -- POST request to Discord Webhook
                  HttpRequest("POST", "YOUR HOOK ID",
                      embed, "application/json", function(status, body, headers)
@@ -37,6 +46,7 @@ local function PlayerDeath(event, killer, player)
                  end)
     end
 end
+
 
 RegisterPlayerEvent(6, PlayerDeath)
 
@@ -46,7 +56,7 @@ local function OnFirstTalk(event, player, unit)
             player:GossipMenuAddItem(0, "Thanks!", 0, 3)
             player:GossipSendMenu(6668, unit)
         else
-            player:GossipMenuAddItem(0, "I'am ready to try Hardcore Mode!", 0, 1)
+            player:GossipMenuAddItem(0, "I am ready to try Hardcore Mode!", 0, 1)
             player:GossipSendMenu(6666, unit)
         end
     else
@@ -86,8 +96,6 @@ local function OnHardCore(event, player, unit, sender, intid, code)
         player:SetCoinage(0)
         player:SendAreaTriggerMessage("|cFFffffffWelcome to Hardcore Mode,|cFF00ff00" .. player:GetName() .. ".|r |cFFffffffStay vigilant and tread carefully!|r")
         SendWorldMessage("|cFFffffffHardcore|r : |cFF00ff00".. player:GetName() .. "|r has entered Hardcore Mode! Best of luck on your journey!")
-               
-
 
         local playerGUID = player:GetGUIDLow()
 
@@ -98,7 +106,7 @@ local function OnHardCore(event, player, unit, sender, intid, code)
                 -- Discord embed
                 local embed = '{"username": "Hardcore System", "avatar_url": "https://skywall.org/hclogo.png", "content": ":tada: Player **'.. playerName ..'** started his HardCore Mode! Good luck! :saluting_face:"}'
                 -- POST request to Discord Webhook
-                HttpRequest("POST", "YOUR HOOKID",
+                HttpRequest("POST", "YOUR HOOK ID",
                     embed, "application/json", function(status, body, headers)
                     print(body)
                 end)
