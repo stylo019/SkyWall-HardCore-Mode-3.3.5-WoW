@@ -101,7 +101,7 @@ local function PlayerDeath(event, killer, player)
         local quoteIndex = math.random(1, #deathQuotes)
         local deathQuote = deathQuotes[quoteIndex]
 
-        -- Escapar comillas simples en las cadenas
+        -- Escape single quotes in strings
         playerName = playerName:gsub("'", "''")
         killerName = killerName:gsub("'", "''")
         deathQuote = deathQuote:gsub("'", "''")
