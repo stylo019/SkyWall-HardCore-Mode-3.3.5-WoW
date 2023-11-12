@@ -22,6 +22,49 @@ local classNames = {
     [9] = "Warlock",
 }
 
+local deathQuotes = {
+    "Better luck next time!",
+    "Valiant effort!",
+    "Fate has spoken...",
+    "Adventure ends here...",
+    "Next journey success!",
+    "Heroes fall, legends live...",
+    "Hardcore claims another...",
+    "In the end, we're mortal...",
+    "Journey over, memories remain...",
+    "Courage in death, true end...",
+    "Through time, hero's echo fades...",
+    "Darkness embraces, new journey...",
+    "Even in defeat, spirit shines...",
+    "Battle lost, life's war continues...",
+    "In fate's tapestry, thread cut...",
+    "Final chapter written, story lives...",
+    "From defeat, new strength born...",
+    "In death, true meaning found...",
+    "Echoes of deeds linger...",
+    "Through mortality's veil, legacy woven...",
+    "In existence's symphony, note fades...",
+    "Amidst shadows, hero's light flickers...",
+    "Destiny's pages turn, bittersweet tale...",
+    "Journey concludes, another begins...",
+    "Chapter closes, story echoes...",
+    "Silence of void, legacy resonates...",
+    "Cosmic dance, solo concludes...",
+    "In tapestry of time, vibrant thread dims...",
+    "Stars weep for hero's departure...",
+    "Vast expanse, hero's tale finds rest...",
+    "Beyond horizon, hero's spirit sails...",
+    "Realm of echoes, your story endures...",
+    "Whispers of fate, hero's name lingers...",
+    "Canvas of life painted, vibrant memories...",
+    "In garden of destiny, petal falls...",
+    "Grand tapestry threads your legacy...",
+    "Curtain falls, saga resonates...",
+    "Cosmic melody, note gracefully concludes...",
+    "Ebb and flow, your tale remains...",
+    "Final chord played, melody endures...",
+}
+
 local function formatTime(seconds)
     local days = math.floor(seconds / 86400)
     local hours = math.floor((seconds % 86400) / 3600)
@@ -53,26 +96,33 @@ local function PlayerDeath(event, killer, player)
         local killerName = killer and killer:GetName() or "Unknown"
 
         local survivalTime = currLevelPlayTime  
-
         local zoneName = player:GetMap():GetName()
 
+        local quoteIndex = math.random(1, #deathQuotes)
+        local deathQuote = deathQuotes[quoteIndex]
+
+        -- Escapar comillas simples en las cadenas
+        playerName = playerName:gsub("'", "''")
+        killerName = killerName:gsub("'", "''")
+        deathQuote = deathQuote:gsub("'", "''")
+
         for _, p in ipairs(players) do
-            p:SendBroadcastMessage("|cFFffffffHardcore|r : |cFFffffffLevel " .. playerLevel .. " player |cFF00ff00" .. playerName .. "|r |cFFffffff(" .. playerRace .. " " .. playerClass .. ") was killed by |cFF00ff00" .. killerName .. "|r |cFFffffffin the " .. zoneName .. " zone, after surviving " .. formattedTimeLvl.."|r")
-            p:SendAreaTriggerMessage("|cFFffffffHardcore|r : |cFFffffffLevel " .. playerLevel .. " player |cFF00ff00" .. playerName .. "|r |cFFffffff(" .. playerRace .. " " .. playerClass .. ") was killed by |cFF00ff00" .. killerName .. "|r |cFFffffffin the " .. zoneName .. " zone, after surviving " .. formattedTimeLvl.."|r")
+            p:SendBroadcastMessage("|cFFffffffHardcore|r : |cFFffffffLevel " .. playerLevel .. " player |cFF00ff00" .. playerName .. "|r |cFFffffff(" .. playerRace .. " " .. playerClass .. ") was killed by |cFF00ff00" .. killerName .. "|r |cFFffffffin the " .. zoneName .. " zone, after surviving " .. formattedTimeLvl .. ". " .. deathQuote .. "|r")
+            p:SendAreaTriggerMessage("|cFFffffffHardcore|r : |cFFffffffLevel " .. playerLevel .. " player |cFF00ff00" .. playerName .. "|r |cFFffffff(" .. playerRace .. " " .. playerClass .. ") was killed by |cFF00ff00" .. killerName .. "|r |cFFffffffin the " .. zoneName .. " zone, after surviving " .. formattedTimeLvl .. ". " .. deathQuote .. "|r")
         end
 
-        local input_HC_Dead = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid, survival_time, player_race, player_class, zone_name) VALUES ('" .. player:GetName() .. "', '" .. player:GetLevel() .. "', '" .. killerName .. "',  NOW(), 'DEAD', '" .. playerGUID .. "', '" .. survivalTime .. "', '" .. playerRace .. "', '" .. playerClass .. "', '" .. zoneName .. "')"
+        local input_HC_Dead = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid, survival_time, player_race, player_class, zone_name, death_quote) VALUES ('" .. playerName .. "', '" .. playerLevel .. "', '" .. killerName .. "',  NOW(), 'DEAD', '" .. playerGUID .. "', '" .. survivalTime .. "', '" .. playerRace .. "', '" .. playerClass .. "', '" .. zoneName .. "', '" .. deathQuote .. "')"
         AuthDBExecute(input_HC_Dead)
 
         player:RemoveItem(666, 1)
 
         -- Discord embed
-                 local embed = '{"username": "Hardcore System", "avatar_url": "https://skywall.org/hclogo.png", "content": ":skull: Player **'.. playerName ..' (' .. playerRace .. ' ' .. playerClass .. ')** was killed by **' ..killerName.. '** at Level '.. playerLevel ..' in the ' .. zoneName .. ' zone, after surviving ' ..formattedTimeLvl.. ' ...better luck next time! Rip! :skull_crossbones:"}'
-                 -- POST request to Discord Webhook
-                 HttpRequest("POST", "https://discord.com/api/webhooks/1171672579170377778/myo2lUfv-dKIyubF18iXyOVeFY_4I5ylsg7fjMal5zHQaJoC7zb84w7irAnpGFQQIi2Z",
-                     embed, "application/json", function(status, body, headers)
-                     print(body)
-                 end)
+        local embed = '{"username": "Hardcore System", "avatar_url": "https://skywall.org/hclogo.png", "content": ":skull: Player **'.. playerName ..' (' .. playerRace .. ' ' .. playerClass .. ')** was killed by **' ..killerName.. '** at Level '.. playerLevel ..' in the ' .. zoneName .. ' zone, after surviving ' ..formattedTimeLvl.. '. ' .. deathQuote .. ' :skull_crossbones:"}'
+        -- POST request to Discord Webhook
+        HttpRequest("POST", "https://discord.com/api/webhooks/1171672579170377778/myo2lUfv-dKIyubF18iXyOVeFY_4I5ylsg7fjMal5zHQaJoC7zb84w7irAnpGFQQIi2Z",
+            embed, "application/json", function(status, body, headers)
+                print(body)
+            end)
     end
 end
 
