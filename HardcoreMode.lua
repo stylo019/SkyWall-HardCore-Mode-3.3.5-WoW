@@ -1,4 +1,8 @@
 -- SkyWall.org
+
+local auraID = 43869  -- Replace with the actual ID of the aura you want to apply
+local auraDuration = 10800  -- Replace with the desired duration of the punishment aura that will be placed after the player dies. // 10800 3hrs in seconds
+
 local raceNames = {
     [1] = "Human",
     [2] = "Orc",
@@ -106,9 +110,16 @@ local function PlayerDeath(event, killer, player)
         killerName = killerName:gsub("'", "''")
         deathQuote = deathQuote:gsub("'", "''")
 
+        player:AddAura(auraID, player, player):SetDuration(auraDuration * 1000)
+
+        -- Notify the player about the aura and the punishment
+        player:SendBroadcastMessage("|cFFFF0000Hardcore |r: |cFFC0C0C0You have failed the Hardcore challenge and are now under a penalty aura for " .. auraDuration .. ". seconds " .. "Reflect on your journey and try again!|r")
+
         for _, p in ipairs(players) do
-            p:SendBroadcastMessage("|cFFffffffHardcore|r : |cFFffffffLevel " .. playerLevel .. " player |cFF00ff00" .. playerName .. "|r |cFFffffff(" .. playerRace .. " " .. playerClass .. ") was killed by |cFF00ff00" .. killerName .. "|r |cFFffffffin the " .. zoneName .. " zone, after surviving " .. formattedTimeLvl .. ". " .. deathQuote .. "|r")
-            p:SendAreaTriggerMessage("|cFFffffffHardcore|r : |cFFffffffLevel " .. playerLevel .. " player |cFF00ff00" .. playerName .. "|r |cFFffffff(" .. playerRace .. " " .. playerClass .. ") was killed by |cFF00ff00" .. killerName .. "|r |cFFffffffin the " .. zoneName .. " zone, after surviving " .. formattedTimeLvl .. ". " .. deathQuote .. "|r")
+            if p == player then
+                p:SendBroadcastMessage("|cFFffffffHardcore|r : |cFFffffffLevel " .. playerLevel .. " player |cFF00ff00" .. playerName .. "|r |cFFffffff(" .. playerRace .. " " .. playerClass .. ") was killed by |cFF00ff00" .. killerName .. "|r |cFFffffffin the " .. zoneName .. " zone, after surviving " .. formattedTimeLvl .. ". " .. deathQuote .. "|r")
+                p:SendAreaTriggerMessage("|cFFffffffHardcore|r : |cFFffffffLevel " .. playerLevel .. " player |cFF00ff00" .. playerName .. "|r |cFFffffff(" .. playerRace .. " " .. playerClass .. ") was killed by |cFF00ff00" .. killerName .. "|r |cFFffffffin the " .. zoneName .. " zone, after surviving " .. formattedTimeLvl .. ". " .. deathQuote .. "|r")
+            end
         end
 
         local input_HC_Dead = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid, survival_time, player_race, player_class, zone_name, death_quote) VALUES ('" .. playerName .. "', '" .. playerLevel .. "', '" .. killerName .. "',  NOW(), 'DEAD', '" .. playerGUID .. "', '" .. survivalTime .. "', '" .. playerRace .. "', '" .. playerClass .. "', '" .. zoneName .. "', '" .. deathQuote .. "')"
