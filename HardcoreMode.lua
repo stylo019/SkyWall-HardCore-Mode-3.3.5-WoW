@@ -1,7 +1,7 @@
 -- SkyWall.org
 
 local auraID = 43869  -- Replace with the actual ID of the aura you want to apply
-local auraDuration = 10800  -- Replace with the desired duration of the punishment aura that will be placed after the player dies. // 10800 3hrs in seconds
+local auraDuration = 600  -- Replace with the desired duration of the aura in seconds
 
 local raceNames = {
     [1] = "Human",
@@ -77,6 +77,23 @@ local function formatTime(seconds)
     return string.format("%d days, %d hours, %02d min, %02d sec", days, hours, minutes, seconds)
 end
 
+local function CreateGrave(player)
+    local gameObjectEntry = 194537  -- Replaces with the input ID of the desired GameObject
+    local gameObjectDuration = 86400  -- Replaces with the desired duration of the GameObject in seconds // 86400 seconds = 1 day
+    local x, y, z, o = player:GetLocation()
+
+    player:SummonGameObject(gameObjectEntry, x, y ,z, o)
+
+    if gameObject then
+        -- Schedules the removal of the GameObject after the specified duration
+        local event = CreateLuaEvent(function()
+            if gameObject:IsInWorld() then
+                gameObject:DespawnOrUnsummon()
+            end
+        end, gameObjectDuration * 1000, 1)
+    end
+end
+
 local function PlayerDeath(event, killer, player)
     if player:HasItem(666, 1) then
         local playerGUID = player:GetGUIDLow()
@@ -113,7 +130,7 @@ local function PlayerDeath(event, killer, player)
         player:AddAura(auraID, player, player):SetDuration(auraDuration * 1000)
 
         -- Notify the player about the aura and the punishment
-        player:SendBroadcastMessage("|cFFFF0000Hardcore |r: |cFFC0C0C0You have failed the Hardcore challenge and are now under a penalty aura for " .. auraDuration .. ". seconds " .. "Reflect on your journey and try again!|r")
+        player:SendBroadcastMessage("|cFFFF0000Hardcore |r: |cFFC0C0C0You have failed the Hardcore challenge and are now under a penalty aura for " .. auraDuration .. " seconds. " .. "Reflect on your journey and try again!|r")
 
         for _, p in ipairs(players) do
             if p == player then
@@ -126,6 +143,9 @@ local function PlayerDeath(event, killer, player)
         AuthDBExecute(input_HC_Dead)
 
         player:RemoveItem(666, 1)
+
+        -- Create and spawn the grave after removing the item
+        CreateGrave(player)
 
         -- Discord embed
         local embed = '{"username": "Hardcore System", "avatar_url": "https://skywall.org/hclogo.png", "content": ":skull: Player **'.. playerName ..' (' .. playerRace .. ' ' .. playerClass .. ')** was killed by **' ..killerName.. '** at Level '.. playerLevel ..' in the ' .. zoneName .. ' zone, after surviving ' ..formattedTimeLvl.. '. ' .. deathQuote .. ' :skull_crossbones:"}'
@@ -175,7 +195,6 @@ local function OnSelect(event, player, unit, sender, intid, code)
     end
     if intid == 3 then
         player:GossipComplete()
-
     end
 end
 
