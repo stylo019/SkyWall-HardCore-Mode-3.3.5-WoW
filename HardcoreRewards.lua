@@ -122,7 +122,7 @@ local function onPlayerLevelUp(event, player, newLevel)
     if newLevel and player:HasItem(666, 1) then
       local totalPlayTime = player:GetTotalPlayedTime()
       local formattedTimeTotal = formatTime(totalPlayTime)
-        SendWorldMessage("|cFFffffffHardcore|r : Tiempo total jugado: " .. formattedTimeTotal)
+        SendWorldMessage("|cFFffffffHardcore|r : Total time played: " .. formattedTimeTotal)
     end
 
 end
