@@ -15,8 +15,8 @@ local function onPlayerLevelUp(event, player, newLevel)
       SendWorldMessage("|cFFffffffHardcore|r : " .. player:GetName() .. " has reached the max level 80 without dying on Hardcore Mode! Congratulations he is now Immortal!")
       local players = GetPlayersInWorld()
 
-      for _, player in ipairs(players) do
-              player:SendAreaTriggerMessage("|cFFffffff" .. player:GetName() .. "|r has reached level 80 without dying on Hardcore Mode! |cFF00ff00Congratulations!|r")
+      for _, otherPlayer in ipairs(players) do
+              otherPlayer:SendAreaTriggerMessage("|cFFffffff" .. player:GetName() .. "|r has reached level 80 without dying on Hardcore Mode! |cFF00ff00Congratulations!|r")
       end
         local playerGUID = player:GetGUIDLow()
         local isertDB = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid) VALUES ('" .. player:GetName() .. "', '" .. player:GetLevel() .. "', 'LEVELUP', NOW(), 'LEVELUP', '" ..playerGUID.."')"
@@ -27,8 +27,8 @@ local function onPlayerLevelUp(event, player, newLevel)
       SendWorldMessage("|cFFffffffHardcore|r : " .. player:GetName() .. " has reached level 75 without dying on Hardcore Mode! Congratulations!")
       local players = GetPlayersInWorld()
 
-      for _, player in ipairs(players) do
-              player:SendAreaTriggerMessage("|cFFffffff" .. player:GetName() .. "|r has reached level 75 without dying on Hardcore Mode! |cFF00ff00Congratulations!|r")
+      for _, otherPlayer in ipairs(players) do
+              otherPlayer:SendAreaTriggerMessage("|cFFffffff" .. player:GetName() .. "|r has reached level 75 without dying on Hardcore Mode! |cFF00ff00Congratulations!|r")
       end
         local playerGUID = player:GetGUIDLow()
         local isertDB = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid) VALUES ('" .. player:GetName() .. "', '" .. player:GetLevel() .. "', 'LEVELUP', NOW(), 'LEVELUP', '" ..playerGUID.."')"
@@ -39,8 +39,8 @@ local function onPlayerLevelUp(event, player, newLevel)
       SendWorldMessage("|cFFffffffHardcore|r : " .. player:GetName() .. " has reached level 70 without dying on Hardcore Mode! Congratulations!")
       local players = GetPlayersInWorld()
 
-      for _, player in ipairs(players) do
-              player:SendAreaTriggerMessage("|cFFffffff" .. player:GetName() .. "|r has reached level 70 without dying on Hardcore Mode! |cFF00ff00Congratulations!|r")
+      for _, otherPlayer in ipairs(players) do
+              otherPlayer:SendAreaTriggerMessage("|cFFffffff" .. player:GetName() .. "|r has reached level 70 without dying on Hardcore Mode! |cFF00ff00Congratulations!|r")
       end
         local playerGUID = player:GetGUIDLow()
         local isertDB = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid) VALUES ('" .. player:GetName() .. "', '" .. player:GetLevel() .. "', 'LEVELUP', NOW(), 'LEVELUP', '" ..playerGUID.."')"
@@ -51,53 +51,56 @@ local function onPlayerLevelUp(event, player, newLevel)
       SendWorldMessage("|cFFffffffHardcore|r : " .. player:GetName() .. " has reached level 60 without dying on Hardcore Mode! Congratulations!")
       local players = GetPlayersInWorld()
 
-      for _, player in ipairs(players) do
-              player:SendAreaTriggerMessage("|cFFffffff" .. player:GetName() .. "|r has reached level 60 without dying on Hardcore Mode! |cFF00ff00Congratulations!|r")
+      for _, otherPlayer in ipairs(players) do
+              otherPlayer:SendAreaTriggerMessage("|cFFffffff" .. player:GetName() .. "|r has reached level 60 without dying on Hardcore Mode! |cFF00ff00Congratulations!|r")
       end
         local playerGUID = player:GetGUIDLow()
         local isertDB = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid) VALUES ('" .. player:GetName() .. "', '" .. player:GetLevel() .. "', 'LEVELUP', NOW(), 'LEVELUP', '" ..playerGUID.."')"
         AuthDBExecute(isertDB)
     end
-
+    
     if newLevel == 49 and player:HasItem(666, 1) then
       SendWorldMessage("|cFFffffffHardcore|r : " .. player:GetName() .. " has reached level 50 without dying on Hardcore Mode! Congratulations!")
       local players = GetPlayersInWorld()
 
-      for _, player in ipairs(players) do
-              player:SendAreaTriggerMessage("|cFFffffff" .. player:GetName() .. "|r has reached level 50 without dying on Hardcore Mode! |cFF00ff00Congratulations!|r")
+      for _, otherPlayer in ipairs(players) do
+              otherPlayer:SendAreaTriggerMessage("|cFFffffff" .. player:GetName() .. "|r has reached level 50 without dying on Hardcore Mode! |cFF00ff00Congratulations!|r")
       end
         local playerGUID = player:GetGUIDLow()
         local isertDB = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid) VALUES ('" .. player:GetName() .. "', '" .. player:GetLevel() .. "', 'LEVELUP', NOW(), 'LEVELUP', '" ..playerGUID.."')"
         AuthDBExecute(isertDB)
     end
+
     if newLevel == 39 and player:HasItem(666, 1) then
       SendWorldMessage("|cFFffffffHardcore|r : " .. player:GetName() .. " has reached level 40 without dying on Hardcore Mode! Congratulations!")
       local players = GetPlayersInWorld()
 
-      for _, player in ipairs(players) do
-              player:SendAreaTriggerMessage("|cFFffffff" .. player:GetName() .. "|r has reached level 40 without dying on Hardcore Mode! |cFF00ff00Congratulations!|r")
+      for _, otherPlayer in ipairs(players) do
+              otherPlayer:SendAreaTriggerMessage("|cFFffffff" .. player:GetName() .. "|r has reached level 40 without dying on Hardcore Mode! |cFF00ff00Congratulations!|r")
       end
         local playerGUID = player:GetGUIDLow()
         local isertDB = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid) VALUES ('" .. player:GetName() .. "', '" .. player:GetLevel() .. "', 'LEVELUP', NOW(), 'LEVELUP', '" ..playerGUID.."')"
         AuthDBExecute(isertDB)
     end
+
     if newLevel == 29 and player:HasItem(666, 1) then
       SendWorldMessage("|cFFffffffHardcore|r : " .. player:GetName() .. " has reached level 30 without dying on Hardcore Mode! Congratulations!")
       local players = GetPlayersInWorld()
 
-      for _, player in ipairs(players) do
-              player:SendAreaTriggerMessage("|cFFffffff" .. player:GetName() .. "|r has reached level 30 without dying on Hardcore Mode! |cFF00ff00Congratulations!|r")
+      for _, otherPlayer in ipairs(players) do
+              otherPlayer:SendAreaTriggerMessage("|cFFffffff" .. player:GetName() .. "|r has reached level 30 without dying on Hardcore Mode! |cFF00ff00Congratulations!|r")
       end
         local playerGUID = player:GetGUIDLow()
         local isertDB = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid) VALUES ('" .. player:GetName() .. "', '" .. player:GetLevel() .. "', 'LEVELUP', NOW(), 'LEVELUP', '" ..playerGUID.."')"
         AuthDBExecute(isertDB)
     end
+
     if newLevel == 19 and player:HasItem(666, 1) then
-      SendWorldMessage("|cFFffffffHardcore|r: " .. player:GetName() .. " has reached level 20 without dying on Hardcore Mode! Congratulations!")
+      SendWorldMessage("|cFFffffffHardcore|r : " .. player:GetName() .. " has reached level 20 without dying on Hardcore Mode! Congratulations!")
       local players = GetPlayersInWorld()
 
-      for _, player in ipairs(players) do
-              player:SendAreaTriggerMessage("|cFFffffff" .. player:GetName() .. "|r has reached level 20 without dying on Hardcore Mode! |cFF00ff00Congratulations!|r")
+      for _, otherPlayer in ipairs(players) do
+              otherPlayer:SendAreaTriggerMessage("|cFFffffff" .. player:GetName() .. "|r has reached level 20 without dying on Hardcore Mode! |cFF00ff00Congratulations!|r")
       end
         local playerGUID = player:GetGUIDLow()
         local isertDB = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid) VALUES ('" .. player:GetName() .. "', '" .. player:GetLevel() .. "', 'LEVELUP', NOW(), 'LEVELUP', '" ..playerGUID.."')"
@@ -108,8 +111,8 @@ local function onPlayerLevelUp(event, player, newLevel)
       SendWorldMessage("|cFFffffffHardcore|r : " .. player:GetName() .. " has reached level 10 without dying on Hardcore Mode! Congratulations!")
       local players = GetPlayersInWorld()
 
-      for _, player in ipairs(players) do
-              player:SendAreaTriggerMessage("|cFFffffff" .. player:GetName() .. "|r has reached level 10 without dying on Hardcore Mode! |cFF00ff00Congratulations!|r")
+      for _, otherPlayer in ipairs(players) do
+              otherPlayer:SendAreaTriggerMessage("|cFFffffff" .. player:GetName() .. "|r has reached level 10 without dying on Hardcore Mode! |cFF00ff00Congratulations!|r")
       end
         local playerGUID = player:GetGUIDLow()
         local isertDB = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid) VALUES ('" .. player:GetName() .. "', '" .. player:GetLevel() .. "', 'LEVELUP', NOW(), 'LEVELUP', '" ..playerGUID.."')"
@@ -119,7 +122,7 @@ local function onPlayerLevelUp(event, player, newLevel)
     if newLevel and player:HasItem(666, 1) then
       local totalPlayTime = player:GetTotalPlayedTime()
       local formattedTimeTotal = formatTime(totalPlayTime)
-        SendWorldMessage("|cFFffffffHardcore|r : Total time played: " .. formattedTimeTotal)
+        SendWorldMessage("|cFFffffffHardcore|r : Tiempo total jugado: " .. formattedTimeTotal)
     end
 
 end
