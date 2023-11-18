@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS `hc_dead_log` (
   `date` DATETIME DEFAULT NULL,
   `result` TEXT COLLATE utf8mb4_general_ci,
   `guid` TEXT COLLATE utf8mb4_general_ci,
+  `grave_guid` TEXT COLLATE utf8mb4_general_ci, 
   `survival_time` TEXT COLLATE utf8mb4_general_ci,
   `player_race` TEXT COLLATE utf8mb4_general_ci,
   `player_class` TEXT COLLATE utf8mb4_general_ci,
