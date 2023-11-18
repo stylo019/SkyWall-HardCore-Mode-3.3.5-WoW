@@ -1,7 +1,7 @@
 -- SkyWall.org
 
 local auraID = 43869  -- Replace with the actual ID of the aura you want to apply
-local auraDuration = 600  -- Replace with the desired duration of the aura in seconds
+local auraDuration = 6  -- Replace with the desired duration of the aura in seconds
 
 local raceNames = {
     [1] = "Human",
@@ -78,19 +78,33 @@ local function formatTime(seconds)
 end
 
 local function CreateGrave(player)
-    local gameObjectEntry = 194537  -- Replaces with the input ID of the desired GameObject
-    local gameObjectDuration = 86400  -- Replaces with the desired duration of the GameObject in seconds // 86400 seconds = 1 day
+    if player:GetLevel() < 15 then
+        -- Tomb is not created for players below level 15
+        return
+    end
+
+    local gameObjectEntry = 254605 -- Gameobject id of your grave // It is recommended to use this id 194537
+    local secondsInADay = 86400 -- Duración en segundos que la tumba estará en el mundo (1 día)
+
     local x, y, z, o = player:GetLocation()
 
-    player:SummonGameObject(gameObjectEntry, x, y ,z, o)
+    local grave = player:SummonGameObject(gameObjectEntry, x, y, z, o)
 
-    if gameObject then
-        -- Schedules the removal of the GameObject after the specified duration
+    if grave then
+        local graveGUID = grave:GetGUIDLow() -- Obtener el GUID de la tumba
+
+        -- Depawn the grave
         local event = CreateLuaEvent(function()
-            if gameObject:IsInWorld() then
-                gameObject:DespawnOrUnsummon()
+            if grave and grave:IsInWorld() then
+                grave:Despawn()
             end
-        end, gameObjectDuration * 1000, 1)
+        end, secondsInADay * 1000, 1)
+
+        print("Grave GUID: " .. graveGUID)
+
+        -- Store the GUID of the grave in the database
+        local input_Grave_GUID = "UPDATE hc_dead_log SET grave_guid = '" .. graveGUID .. "' WHERE guid = '" .. player:GetGUIDLow() .. "'"
+        AuthDBExecute(input_Grave_GUID)
     end
 end
 
@@ -150,7 +164,7 @@ local function PlayerDeath(event, killer, player)
         -- Discord embed
         local embed = '{"username": "Hardcore System", "avatar_url": "https://skywall.org/hclogo.png", "content": ":skull: Player **'.. playerName ..' (' .. playerRace .. ' ' .. playerClass .. ')** was killed by **' ..killerName.. '** at Level '.. playerLevel ..' in the ' .. zoneName .. ' zone, after surviving ' ..formattedTimeLvl.. '. ' .. deathQuote .. ' :skull_crossbones:"}'
         -- POST request to Discord Webhook
-        HttpRequest("POST", "https://discord.com/api/webhooks/1171672579170377778/myo2lUfv-dKIyubF18iXyOVeFY_4I5ylsg7fjMal5zHQaJoC7zb84w7irAnpGFQQIi2Z",
+        HttpRequest("POST", "https://discord.com/api/webhooks/1175435360143159338/5eY7cwlOQ7xbr3MGswxRXM7zXeeBDHTyO2kxITsaFJqA0GFhWAJqYLgNLJrdktUvxhHp",
             embed, "application/json", function(status, body, headers)
                 print(body)
             end)
@@ -200,33 +214,35 @@ end
 
 local function OnHardCore(event, player, unit, sender, intid, code)
     if intid == 2 then
+        local playerName = player:GetName()  -- Retrieve the player's name
+
         player:AddItem(666, 1)
         player:SetCoinage(0)
-        player:SendAreaTriggerMessage("|cFFffffffWelcome to Hardcore Mode,|cFF00ff00" .. player:GetName() .. ".|r |cFFffffffStay vigilant and tread carefully!|r")
-        SendWorldMessage("|cFFffffffHardcore|r : |cFF00ff00".. player:GetName() .. "|r has entered Hardcore Mode! Best of luck on your journey!")
+        player:SendAreaTriggerMessage("|cFFffffffWelcome to Hardcore Mode,|cFF00ff00" .. playerName .. ".|r |cFFffffffStay vigilant and tread carefully!|r")
+        SendWorldMessage("|cFFffffffHardcore|r : |cFF00ff00" .. playerName .. "|r has entered Hardcore Mode! Best of luck on your journey!")
 
         local playerGUID = player:GetGUIDLow()
 
         -- Insert a record into the hc_dead_log table to mark the player's start
-        local input_HC_Start = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid) VALUES ('" .. player:GetName() .. "', '" .. player:GetLevel() .. "', 'STARTED', NOW(), 'BEGIN', '" ..playerGUID.."')"
+        local input_HC_Start = "INSERT INTO hc_dead_log (username, level, killer, date, result, guid) VALUES ('" .. playerName .. "', '" .. player:GetLevel() .. "', 'STARTED', NOW(), 'BEGIN', '" .. playerGUID .. "')"
         AuthDBExecute(input_HC_Start)
-        
-                -- Discord embed
-                local embed = '{"username": "Hardcore System", "avatar_url": "https://skywall.org/hclogo.png", "content": ":tada: Player **'.. playerName ..'** started his HardCore Mode! Good luck! :saluting_face:"}'
-                -- POST request to Discord Webhook
-                HttpRequest("POST", "https://discord.com/api/webhooks/1171672579170377778/myo2lUfv-dKIyubF18iXyOVeFY_4I5ylsg7fjMal5zHQaJoC7zb84w7irAnpGFQQIi2Z",
-                    embed, "application/json", function(status, body, headers)
-                    print(body)
-                end)
+
+        -- Discord embed
+        local embed = '{"username": "Hardcore System", "avatar_url": "https://skywall.org/hclogo.png", "content": ":tada: Player **' .. playerName .. '** started his HardCore Mode! Good luck! :saluting_face:"}'
+        -- POST request to Discord Webhook
+        HttpRequest("POST", "https://discord.com/api/webhooks/1175435360143159338/5eY7cwlOQ7xbr3MGswxRXM7zXeeBDHTyO2kxITsaFJqA0GFhWAJqYLgNLJrdktUvxhHp",
+            embed, "application/json", function(status, body, headers)
+                print(body)
+            end)
 
         -- Add the player to the "HardCore" guild using Guild:AddMember()
-        local guild = GetGuildByName("HardCore") 
+        local guild = GetGuildByName("HardCore")
         if guild then
             guild:AddMember(player, 3) -- Replace 3 with the desired rank ID
         end
 
         player:GossipComplete()
-    end  
+    end
 end
 
 RegisterCreatureGossipEvent(666, 1, OnFirstTalk)
