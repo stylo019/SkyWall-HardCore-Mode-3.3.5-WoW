@@ -18,7 +18,7 @@ end
 
 local function sendDiscordNotification(content)
   local embed = '{"username": "Hardcore System", "avatar_url": "https://skywall.org/hclogo.png", "content": "' .. content .. '"}'
-  HttpRequest("POST", "https://discord.com/api/webhooks/1128075342033207336/dcg5e7hfOQ2dvU_rL-8oBSRFgDpyQeNM7HFPuDQXtXZ6yMDJ6tVJ1CUlUEqAJoYhT-Gi", embed, "application/json", function(status, body, headers)
+  HttpRequest("POST", "https://discord.com/api/webhooks/1128075342033207336/XXXXXXX PAST HERE YOUR DISCORD CHANNEL ID XXXXXXXX", embed, "application/json", function(status, body, headers)
       print(body)
   end)
 end

@@ -141,7 +141,7 @@ local function NotifyDiscord(player, killer)
 
     local embed = string.format('{"username": "Hardcore System", "avatar_url": "https://skywall.org/hclogo.png", "content": ":skull: Player **%s (%s %s)** was killed by **%s** at Level %d in the %s zone. %s :skull_crossbones:"}', 
                                 playerName, playerRace, playerClass, killerName, playerLevel, zoneName, deathQuote)
-    HttpRequest("POST", "https://discord.com/api/webhooks/1128075342033207336/dcg5e7hfOQ2dvU_rL-8oBSRFgDpyQeNM7HFPuDQXtXZ6yMDJ6tVJ1CUlUEqAJoYhT-Gi", embed, "application/json", function(status, body, headers)
+    HttpRequest("POST", "https://discord.com/api/webhooks/1128075342033207336/XXXXXXX PAST HERE YOUR DISCORD CHANNEL ID XXXXXXXX", embed, "application/json", function(status, body, headers)
         print(body)
     end)
 end
@@ -206,7 +206,7 @@ local function StartHardCoreMode(player)
     local embed = string.format('{"username": "Hardcore System", "avatar_url": "https://skywall.org/hclogo.png", "content": ":tada: Player **%s** has entered his HardCore Mode and receive his sign! %s :saluting_face:"}', 
                                 playerName, startQuote)
     
-    HttpRequest("POST", "https://discord.com/api/webhooks/1128075342033207336/dcg5e7hfOQ2dvU_rL-8oBSRFgDpyQeNM7HFPuDQXtXZ6yMDJ6tVJ1CUlUEqAJoYhT-Gi", embed, "application/json", function(status, body, headers)
+    HttpRequest("POST", "https://discord.com/api/webhooks/1128075342033207336/XXXXXXX PAST HERE YOUR DISCORD CHANNEL ID XXXXXXXX", embed, "application/json", function(status, body, headers)
         print(body)
     end)
 
