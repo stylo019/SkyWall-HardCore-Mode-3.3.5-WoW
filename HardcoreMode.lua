@@ -147,7 +147,7 @@ local function NotifyDiscord(player, killer)
 end
 
 local function PlayerDeath(event, killer, player)
-    if type(player) ~= "userdata" or not player:HasItem(666, 1) then
+    if type(player) ~= "userdata" or not (player:HasItem(666, 1) or player:HasItem(666, 1, 255)) then
         return
     end
 
@@ -160,6 +160,7 @@ local function PlayerDeath(event, killer, player)
     BroadcastDeathMessage(player, killer)
     LogDeathToDatabase(player, killer)
     player:RemoveItem(666, 1)
+    player:RemoveItem(666, 1, 255)
     --CreateGrave(player)
     NotifyDiscord(player, killer)
 end
