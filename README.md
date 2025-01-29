@@ -1,4 +1,4 @@
-# [SkyWall](https://skywall.org) Hardcore Mode (3.3.5 WoW) (Béta)
+# [SkyWall](https://skywall.org) Hardcore Mode (3.3.5 WoW)
 
 [SkyWall](https://skywall.org) Hardcore Mode is a mod for the game World of Warcraft (version 3.3.5) that introduces a Hardcore game mode for players seeking an extra challenge. In this mode, players face tougher challenges, and if they die, they lose valuable items or get kicked from a special Hardcore guild.
 
